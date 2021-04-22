@@ -1,3 +1,3 @@
-//Collaborators Robert Williams, Carey Wang Aaron Tishler
+//Collaborators Robert Williams, Carey Wang and Aaron Tishler
 // *Game Title*      
 //Date completed:
