@@ -8,7 +8,10 @@ class Projectile extends Phaser.GameObjects.Sprite{
     
 
     update (){
-        this.x = position;
+        if(!this.isFiring){
+            this.x = xPosition;
+            this.y = yPosition;
+        }
         if(Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring) {
             this.isFiring = true;
             this.moveSpeed = 3;
