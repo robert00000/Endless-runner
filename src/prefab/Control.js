@@ -9,6 +9,7 @@ class Control extends Phaser.GameObjects.Sprite{
 
     update()
     {
+        position = this.x;
         // text1 = this.add.text(10, 10, '', { fill: '#00ff00' });
         // text2 = this.add.text(500, 10, '', { fill: '#00ff00' });
         if(keyLEFT.isDown && this.x >= borderUISize + this.width) {
