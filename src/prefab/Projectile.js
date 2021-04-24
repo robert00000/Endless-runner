@@ -27,6 +27,7 @@ class Projectile extends Phaser.GameObjects.Sprite{
     reset(){
         this.isFiring = false;
         this.moveSpeed = .5;
-        this.y = game.config.height - borderUISize - borderPadding;
+        this.x = xPosition;
+        this.y = yPosition;
     }
 }
