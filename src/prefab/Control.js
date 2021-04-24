@@ -3,15 +3,20 @@ class Control extends Phaser.GameObjects.Sprite{
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this);
-        
+        this.moveSpeed = 2;
     }
     
 
-    //update()
-    //{
+    update()
+    {
         // text1 = this.add.text(10, 10, '', { fill: '#00ff00' });
         // text2 = this.add.text(500, 10, '', { fill: '#00ff00' });
-
+        if(keyLEFT.isDown && this.x >= borderUISize + this.width) {
+            this.x -= this.moveSpeed;
+        } 
+        else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) {
+           this.x += this.moveSpeed;
+        }
         // this.input.mouse.disableContextMenu();
 
         // this.input.on('pointerup', function (pointer) {
@@ -36,11 +41,7 @@ class Control extends Phaser.GameObjects.Sprite{
             // {
             //     text2.setText('Forward Button was released');
             // }
-            // else if(keyLEFT.isDown && this.x >= borderUISize + this.width) {
-            //     text2.setText('Left Button was pressed');
-            // } else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) {
-            //     text2.setText('Right Button was pressed');
-            // }
-       // });
-    //}
+            
+        //});
+    }
 }
