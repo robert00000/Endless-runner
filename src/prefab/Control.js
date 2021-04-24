@@ -12,11 +12,11 @@ class Control extends Phaser.GameObjects.Sprite{
         position = this.x;
         // text1 = this.add.text(10, 10, '', { fill: '#00ff00' });
         // text2 = this.add.text(500, 10, '', { fill: '#00ff00' });
-        if(keyLEFT.isDown && this.x >= borderUISize + this.width) {
-            this.x -= this.moveSpeed;
+        if(keyUP.isDown && this.x >= borderUISize + this.width) {
+            this.y -= this.moveSpeed;
         } 
-        else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) {
-           this.x += this.moveSpeed;
+        else if (keyDOWN.isDown && this.x <= game.config.width - borderUISize - this.width) {
+           this.y += this.moveSpeed;
         }
         // this.input.mouse.disableContextMenu();
 
