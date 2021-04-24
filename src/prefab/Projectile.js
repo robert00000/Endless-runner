@@ -3,31 +3,22 @@ class Projectile extends Phaser.GameObjects.Sprite{
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this);
-        this.moveSpeed = 2;
+        this.moveSpeed = 1;
     }
-    
-
-    update (){
-        if(!this.isFiring){
-            this.x = xPosition;
-            this.y = yPosition;
+    update(){
+        // move spaceship left
+        if(game_time < 30){
+            this.x -= this.moveSpeed*2;
+        }else{
+            this.x -= this.moveSpeed;
         }
-        if(Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring) {
-            this.isFiring = true;
-            this.moveSpeed = 3;
-        }
-        if(this.isFiring && this.x <= game.config.width + borderPadding) {
-            this.x += this.moveSpeed;
-        }
-        if(this.x >= game.config.width + borderPadding) {
-            this.moveSpeed = .5
+        
+        // wrap around from left to right edge
+        if(this.x <= 0 - this.width){
             this.reset();
         }
     }
     reset(){
-        this.isFiring = false;
-        this.moveSpeed = .5;
-        this.x = xPosition;
-        this.y = yPosition;
+        this.x = game.config.width
     }
 }

@@ -23,7 +23,8 @@ class Play extends Phaser.Scene{
         this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0, 0);
         this.player = new Control(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'Player').setOrigin(5, 1);
         this.enemy = new Enemy(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'Enemy').setOrigin(-5, 1);
-        this.projectile = new Projectile(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'Player').setOrigin(5, 1);
+        this.weapon = new Weapon(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'Player').setOrigin(5, 1);
+        this.projectile1 = new Projectile(this, game.config.width, borderUISize*6 + borderPadding*4, 'Enemy').setOrigin(0,0);
         //Where we define the keys.
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
@@ -36,6 +37,6 @@ class Play extends Phaser.Scene{
 
         this.player.update();
         this.enemy.update();
-        this.projectile.update()
+        this.weapon.update()
     }    
 }
