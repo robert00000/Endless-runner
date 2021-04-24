@@ -16,10 +16,10 @@ class Projectile extends Phaser.GameObjects.Sprite{
             this.isFiring = true;
             this.moveSpeed = 3;
         }
-        if(this.isFiring && this.y >= borderUISize * 3 + borderPadding) {
-            this.y -= this.moveSpeed;
+        if(this.isFiring && this.x <= game.config.width + borderPadding) {
+            this.x += this.moveSpeed;
         }
-        if(this.y <= borderUISize * 3 + borderPadding) {
+        if(this.x >= game.config.width + borderPadding) {
             this.moveSpeed = .5
             this.reset();
         }
