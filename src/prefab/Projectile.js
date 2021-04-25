@@ -1,3 +1,5 @@
+//collision objects that players have to destroy or dodge
+//dsfsfsdfsdfsdf
 class Projectile extends Phaser.GameObjects.Sprite{
     constructor(scene, x, y, texture, frame){
         super(scene, x, y, texture, frame);
@@ -6,8 +8,9 @@ class Projectile extends Phaser.GameObjects.Sprite{
         this.moveSpeed = 1;
     }
     update(){
-        // move spaceship left
+        // move projectile left
         this.x -= this.moveSpeed*2;
+        abcdefghjjkl;
         
         // wrap around from left to right edge
         if(this.x <= 0 - this.width){
