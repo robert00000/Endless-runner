@@ -7,11 +7,7 @@ class Projectile extends Phaser.GameObjects.Sprite{
     }
     update(){
         // move spaceship left
-        if(game_time < 30){
-            this.x -= this.moveSpeed*2;
-        }else{
-            this.x -= this.moveSpeed;
-        }
+        this.x -= this.moveSpeed*2;
         
         // wrap around from left to right edge
         if(this.x <= 0 - this.width){

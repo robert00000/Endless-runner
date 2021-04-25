@@ -3,7 +3,7 @@ class Weapon extends Phaser.GameObjects.Sprite{
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this);
-        this.moveSpeed = 2;
+        this.moveSpeed = 10;
     }
     
 
@@ -14,7 +14,7 @@ class Weapon extends Phaser.GameObjects.Sprite{
         }
         if(Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring) {
             this.isFiring = true;
-            this.moveSpeed = 3;
+            this.moveSpeed = 10;
         }
         if(this.isFiring && this.x <= game.config.width + borderPadding) {
             this.x += this.moveSpeed;
