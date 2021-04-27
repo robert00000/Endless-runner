@@ -18,10 +18,10 @@ class Play extends Phaser.Scene{
     }
 //Make player 2 as well as add some kind of music.
     create() {
-
+        
         this.input.mouse.disableContextMenu();
         //Where art assets go.
-        this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0, 0);
+        this.background = this.add.tileSprite(0, 0, 640, 960, 'background').setOrigin(0, 0);
         this.player = new Control(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'Player').setOrigin(5, 1);
         this.enemy = new Enemy(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'Enemy').setOrigin(-5, 1);
         this.weapon = new Weapon(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'Sword').setOrigin(3, 1);
@@ -30,9 +30,37 @@ class Play extends Phaser.Scene{
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
-      //  KeyLeftClick = this.input
+        //Displays information of variables found within the game.
+        //  Using the Scene Data Plugin we can store data on a Scene level
+        this.data.set('time', 1);
+        this.data.set('level', 1);
+        this.data.set('score', 0);
+        var text = this.add.text(450, 1, '', { font: '16px Courier', fill: '#00ff00' });
+        text.setText([
+            'Level: ' + this.data.get('level'),
+            'Time: ' + this.data.get('time'),
+            'Score: ' + this.data.get('score')
+        ]);
+        //Game over flag
+        this.gameOver = false;
+      //  For collision work on arcade physics.
+        // let ball01 = this.physics.add.sprite(widthSpacer, halfHeight, 'basketball).setScale(0.5);\
+        
     }
     update(){
+        // if(this.gameOver){
+        //     this.scene.start('GameOver')
+        // }
+        if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            this.scene.start("Title");
+        }
+        //Check for player if they are still alive. Needs to be worked on.
+        // if(!this.player.destroyed){
+        //     // check for player input
+        //     if(cursors.up.isDown){
+
+        //     }else if (cursors.down.isDown)
+        // }
         //The speed for the background.
         this.background.tilePositionX += .5;
 
@@ -40,7 +68,7 @@ class Play extends Phaser.Scene{
         this.enemy.update();
         this.weapon.update()
         this.projectile1.update();
-
+        this.playerCollision();
         //Collision checks.
         // checkCollision(player, enemy) {
         //     // simple AABB checking
@@ -56,4 +84,7 @@ class Play extends Phaser.Scene{
         //This code Eliminates the target.
         
     }    
+    playerCollision(){
+        
+    }
 }
