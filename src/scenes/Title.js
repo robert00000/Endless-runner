@@ -31,14 +31,16 @@ class Title extends Phaser.Scene {
             fixedWidth: 0
         }
         //this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0, 0);
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Welcome to Prototype game', menuConfig).setOrigin(0.5);
+        var text1 = this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Welcome to Prototype game', menuConfig).setOrigin(0.5);
+        text1.setTint(0xff0000);
         this.add.text(game.config.width/2, game.config.height/2, 'Use UP & DOWN arrows keys to move & (F) to fire', textConfig).setOrigin(0.5);
       
       
-        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press the F key to start the game', textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press the R key to start the game', textConfig).setOrigin(0.5);
         
-        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
-
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        
+        highScore = 0;
         // title text tween
         // this.tweens.add({
         //     targets: title01,
@@ -65,7 +67,7 @@ class Title extends Phaser.Scene {
     }
 
     update() {
-        if (keyF.isDown) {
+        if (keyR.isDown) {
             let textureManager = this.textures;
             // take snapshot of the entire game viewport
             // https://newdocs.phaser.io/docs/3.54.0/Phaser.Renderer.WebGL.WebGLRenderer#snapshot

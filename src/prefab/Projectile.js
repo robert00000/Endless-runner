@@ -9,7 +9,7 @@ class Projectile extends Phaser.GameObjects.Sprite{
     }
     update(){
         // move projectile left
-        this.x -= this.moveSpeed*2;
+        this.body.setVelocityX(-ballVelocity)
         
         // wrap around from left to right edge
         if(this.x <= 0 - this.width){

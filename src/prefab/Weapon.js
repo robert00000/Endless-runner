@@ -16,19 +16,17 @@ class Weapon extends Phaser.GameObjects.Sprite{
         }
         if(Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring) {
             this.isFiring = true;
-            this.moveSpeed = 10;
         }
         if(this.isFiring ) {
-            this.x += this.moveSpeed;
+            this.body.setVelocityX(this.ballVelocity);
         }
         if(this.x >= game.config.width + borderPadding) {
-            this.moveSpeed = .5
             this.reset();
         }
     }
     reset(){
         this.isFiring = false;
-        this.moveSpeed = .5;
+        this.body.setVelocityX(0);
         this.x = xPosition;
         this.y = yPosition;
     }
