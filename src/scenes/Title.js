@@ -68,6 +68,12 @@ class Title extends Phaser.Scene {
 
     update() {
         if (keyR.isDown) {
+            //setting default time to 0 for timer
+            game.settings = 
+            {
+                gameTimer: 1000
+            }
+
             let textureManager = this.textures;
             // take snapshot of the entire game viewport
             // https://newdocs.phaser.io/docs/3.54.0/Phaser.Renderer.WebGL.WebGLRenderer#snapshot

@@ -62,6 +62,38 @@ class Play extends Phaser.Scene{
         swap.on('down', () => {
             this.scene.start("gameOverScene");
         });
+
+
+        this.p1Score = 0;
+        highScore = highScore;
+
+        let scoreConfig = 
+        {
+        fontFamily: 'Courier',
+        fontSize: '28px',
+        backgroundColor: '#F3B141',
+        color: '#843605',
+        align: 'right',
+        padding: {
+          top: 5,
+          bottom: 5,
+        },
+        fixedWidth: 100
+        }
+
+        // this.scoreRight = this.add.text(471, 54, this.p2Score, scoreConfig);
+        scoreConfig.color = "#FF0000";
+        this.gameOver = false;
+
+        scoreConfig.fixedWidth = 0;
+
+        //creating play clock
+        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {}, null, this); 
+
+        //creates timer display
+        scoreConfig.color = "#843605";
+        this.timer = this.add.text(game.config.width/2, 72, this.clock.getElapsedSeconds(), scoreConfig).setOrigin(0.5);
+       
         
 
 
@@ -131,9 +163,14 @@ class Play extends Phaser.Scene{
         
     }
 
+  
     // I've sort of figured out how to work the collision system that 
     //Phaser 3 offers which is called Arcade Physics. This allows us to check if things collide.
     update(){
+
+        //updates timer
+        this.timer.text = (game.settings.gameTimer / 1000) + Math.floor(this.clock.getElapsedSeconds());
+
         //The speed for the background.
         this.background.tilePositionX += .5;
         // check collisions
@@ -181,6 +218,7 @@ class Play extends Phaser.Scene{
              this.player.body.setVelocityY(0);
              this.sword.body.setVelocityY(0);
          }
+         
          
 
 
