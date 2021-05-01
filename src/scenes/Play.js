@@ -3,11 +3,11 @@ class Play extends Phaser.Scene{
         super("playScene");
     }
     preload(){
-        this.load.image('Player', './assets/PlyrStickFig.png');
-        this.load.image('Enemy','./assets/WizStickFig.png');
+        this.load.image('Player', './assets/Knight.png');
+        this.load.image('Enemy','./assets/Wizard.png');
         this.load.image('Sword', './assets/Sword.png');
-        
-        
+        this.load.image('Spear', './assets/Spear.png');
+        this.load.image('Boulder', './assets/Rock1.png')
 
     }
 //Make player 2 as well as add some kind of music.
@@ -19,16 +19,41 @@ class Play extends Phaser.Scene{
         this.ballVelocity = 300;
 
         this.background = this.add.tileSprite(0, 0, 640, 960, 'background').setOrigin(0, 0);
+        
+        this.theEnemy = this.add.sprite(240,640, 'Enemy');
+        // this.possessedSword = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'Sword')
+        // this.possessedSword.setVelocityX(-this.ballVelocity);
+         //Grouping for sprites
+        //var group = this.make.group();
+        //enemyGroup.add(this.theEnemy);
+        // enemyGroup.add(this.possessedSword);
+        // enemyGroup.add(this.possessedSword);
+        // enemyGroup.add(this.possessedSword);
+        // enemyGroup.enableBody = true;
+        // enemyGroup.physicsBodyType = Phaser.Physics.Arcade;
 
         // note that scaling the sprite affects the relative position of the physics body
-        this.enemy = this.physics.add.sprite(widthSpacer*5, halfHeight, 'Sword');
+        this.enemy = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'Sword');
+        //Physics body for one of the attacking objects.
         this.enemy.body.setVelocityX(-this.ballVelocity);
-        
-        
+        this.enemy.body.setAngularVelocity(90);
         this.enemy.body.onCollide = true; // must be set for collision event to work
+        //Physics object for the spear
+        this.spear = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'Spear');
+        this.spear.body.setVelocityX(-this.ballVelocity -100);
+        this.spear.body.onCollide = true;
+        
+        //Physics object for the boulder
+        this.boulder = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5),'Boulder');
+        this.boulder.body.setVelocityX(-100);
+        this.boulder.body.onCollide = true;
+       // this.enemy.body.onCollide = true; // must be set for collision event to work
 
 
-        this.sword = this.physics.add.sprite(widthSpacer/2, playerY, 'Sword');
+        this.sword = this.physics.add.sprite(widthSpacer/2, 700, 'Sword');
+        
+        
+
         
         this.player = this.physics.add.sprite(playerX, playerY, 'Player').setOrigin(0.5);
         this.player.body.onCollide = true;      // must be set for collision event to work
@@ -65,22 +90,22 @@ class Play extends Phaser.Scene{
         
 
 
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+          }
+        
 
 
+        //Timer for the spawning of things.
+        var timer = this.time.addEvent({
+            delay: 500,                // ms
+            //args: [],
+            repeat: 4
+        });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
         // // reset parameters
         // level = 0;
@@ -115,7 +140,7 @@ class Play extends Phaser.Scene{
              'X coord: ' + this.data.get('time'),
              'Score: ' + this.data.get('score')
          ]);
-
+        
         // set up difficulty timer (triggers callback every second)
         // this.difficultyTimer = this.time.addEvent({
         //     delay: 1000,
@@ -134,22 +159,41 @@ class Play extends Phaser.Scene{
     // I've sort of figured out how to work the collision system that 
     //Phaser 3 offers which is called Arcade Physics. This allows us to check if things collide.
     update(){
+        this.moveSprite();
         //The speed for the background.
-        this.background.tilePositionX += .5;
+        this.background.tilePositionX += 1;
         // check collisions
         if(this.physics.collide(this.player, this.enemy)){
+            this.scene.start('gameOverScene');
+        }
+        if(this.physics.collide(this.player, this.spear)){
+            this.scene.start('gameOverScene');
+        }
+        if(this.physics.collide(this.player, this.boulder)){
             this.scene.start('gameOverScene');
         }
         //When these objects collide it can reset their positions and create a new image.
         if(this.physics.collide(this.sword, this.enemy)){
             this.resetEnemy();
-            this.resetWeapon();
+            this.hideWeapon();
+            this.moveSprite();
+            // this.resetWeapon();
         }
         else if(this.enemy.x <= 0){
-            this.enemy.x = game.config.width;
+            this.moveSprite();
+            this.resetEnemy();
+            
+        }
+        else if(this.spear.x <= 0){
+            this.resetSpear();
+        }
+        else if(this.boulder.x <= 0){
+            this.resetBoulder;
         }
         else if(this.sword.x >= game.config.width + borderPadding){
-            this.resetWeapon();
+            this.hideWeapon();
+            
+            // this.resetWeapon();
         }
 
         // check overlaps
@@ -168,14 +212,17 @@ class Play extends Phaser.Scene{
         
          if(cursors.up.isDown) {
             this.player.body.setVelocityY(-this.ballVelocity);
-            this.checkMovement();
+            //this.checkMovement();
         } else if(cursors.down.isDown) {
              this.player.body.setVelocityY(this.ballVelocity);
-             this.checkMovement();
+             //this.checkMovement();
         } 
          else if(keyF.isDown){
+            this.resetWeapon();
+            this.checkMovement();
+            
             weaponCheck = true;
-            this.sword.body.setVelocityX(this.ballVelocity);
+            this.sword.body.setVelocityX(600);
         }
         else {
              this.player.body.setVelocityY(0);
@@ -216,10 +263,28 @@ class Play extends Phaser.Scene{
         //this.weapon.update()
         //this.projectile1.update();
     }
-    //Could possibly randomize sprites chosen
+    //Could possibly randomize sprites chosen somewhere here.
+
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    }
+
     resetEnemy(){
         this.enemy.x = widthSpacer*5;
+        this.enemy.y = 100*this.getRandomInt(1,5);
         this.enemy.body.setVelocityX(-this.ballVelocity);
+    }
+    resetSpear(){
+        this.spear.x = widthSpacer*5;
+        this.spear.y = 125*this.getRandomInt(1,9);
+        this.spear.body.setVelocityX(-this.ballVelocity - 100);
+    }
+    resetBoulder(){
+        this.boulder.x = widthSpacer*5;
+        this.boulder.y = 100*this.getRandomInt(1,5);
+        this.boulder.body.setVelocityX(-100);
     }
     //Resets the player weapon.
     resetWeapon(){
@@ -231,6 +296,35 @@ class Play extends Phaser.Scene{
     checkMovement(){
         if(!weaponCheck){
             this.sword.y = this.player.y;
+            weaponCheck = false;
         }
+    }
+    //function to hide weapon.
+    hideWeapon(){
+        this.sword.y = -200;
+        this.sword.x = 0;
+        this.sword.body.setVelocityY(0);
+    }
+    returnWeapon(){
+        this.tweens.add({
+            targets: this.sword,
+            y: this.sword.y = this.player.y,
+            x: this.sword.x = this.player.x,
+            duration: 1000,
+            ease: 'Power2',
+            delay: 500
+        });
+        this.sword.body.setVelocityX(0);
+    }
+    moveSprite(){
+        this.tweens.add({
+            targets: this.theEnemy,
+            y: this.enemy.y,
+            x: 600,
+            duration: 500,
+            ease: 'Power2',
+            
+        });
+        
     }
 }
