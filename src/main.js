@@ -46,4 +46,6 @@ let halfHeight = game.config.height/2;
 let swap = null;
 let cursors = null;
 let weaponCheck = false;
+
 let enemyGroup = null;
+
