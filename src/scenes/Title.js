@@ -31,39 +31,18 @@ class Title extends Phaser.Scene {
             fixedWidth: 0
         }
         //this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0, 0);
-        var text1 = this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Welcome to Prototype game', menuConfig).setOrigin(0.5);
+        var text1 = this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Welcome to Knight Runner.', menuConfig).setOrigin(0.5);
         text1.setTint(0xff0000);
-        this.add.text(game.config.width/2, game.config.height/2, 'Use UP & DOWN arrows keys to move & (F) to fire', textConfig).setOrigin(0.5);
+        text2 = this.add.text(game.config.width/2, game.config.height/2, 'Use UP & DOWN arrows keys to move & (F) to fire', textConfig).setOrigin(0.5);
       
       
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press the R key to start the game', textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height-200 + borderUISize + borderPadding, 'Avoid the spears and obstacles but you can counter the swords.', textConfig).setOrigin(0.5);
         
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
         highScore = 0;
-        // title text tween
-        // this.tweens.add({
-        //     targets: title01,
-        //     duration: 2500,
-        //     angle: { from: -1, to: 1 },
-        //     yoyo: true,
-        //     repeat: -1,
-        //     onYoyo: function() {
-        //         this.cameras.main.shake(100, 0.0025);
-        //     },
-        //     onYoyoScope: this
-        // });
-        // this.tweens.add({
-        //     targets: title02,
-        //     duration: 2500,
-        //     angle: { from: 1, to: -1 },
-        //     yoyo: true,
-        //     repeat: -1,
-        //     onRepeat: function() {
-        //         this.cameras.main.shake(100, 0.0025);
-        //     },
-        //     onRepeatScope: this
-        // });
+        
     }
 
     update() {

@@ -49,3 +49,6 @@ let weaponCheck = false;
 
 let enemyGroup = null;
 
+let startDate = new Date();
+let endDate = new Date();
+
