@@ -33,7 +33,7 @@ class Title extends Phaser.Scene {
         //this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0, 0);
         var text1 = this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Welcome to Knight Runner.', menuConfig).setOrigin(0.5);
         text1.setTint(0xff0000);
-        text2 = this.add.text(game.config.width/2, game.config.height/2, 'Use UP & DOWN arrows keys to move & (F) to fire', textConfig).setOrigin(0.5);
+        //text2 = this.add.text(game.config.width/2, game.config.height/2, 'Use UP & DOWN arrows keys to move & (F) to fire', textConfig).setOrigin(0.5);
       
       
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press the R key to start the game', textConfig).setOrigin(0.5);

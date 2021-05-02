@@ -28,9 +28,25 @@ class GameOver extends Phaser.Scene {
             fixedWidth: 0
         }
         //this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0, 0);
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Game Over!', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2, 'Press R to restart.', textConfig).setOrigin(0.5);
-      
+        this.text1 = this.add.text(game.config.width/2, -100 - borderUISize - borderPadding, 'Game Over!', menuConfig).setOrigin(0.5);
+        this.text2 = this.add.text(game.config.width/2, -100, 'Press R to restart.', textConfig).setOrigin(0.5);
+        
+
+        this.tweens.add({
+            targets: this.text2,
+            y: 250,
+            duration: 500,
+            ease: 'Power2',
+            
+        });
+        this.tweens.add({
+            targets: this.text1,
+            y: 200,
+            duration: 500,
+            ease: 'Power2',
+            
+        });
+
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
         
@@ -52,5 +68,16 @@ class GameOver extends Phaser.Scene {
             // start next scene
             this.scene.start('playScene');
         }
+
+
+
+        this.tweens.add({
+            targets: endDate,
+            y: 200,
+            x: 300,
+            duration: 500,
+            ease: 'Power2',
+            
+        });
     }
 }
