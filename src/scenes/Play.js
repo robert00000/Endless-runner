@@ -7,7 +7,7 @@ class Play extends Phaser.Scene{
         this.load.image('Enemy','./assets/Wizard.png');
         this.load.image('Sword', './assets/Sword.png');
         this.load.image('Boulder', './assets/Rock2.png')
-        this.load.image('OPsword', './assets/Wizard.png');
+        this.load.image('OPsword', './assets/Spell2.png');
         this.load.image('Spear', './assets/Spell1.png');
 
         this.load.spritesheet('Player', './assets/KnightAnim2.png', {frameWidth: 71, frameHeight: 81, startFrame: 0, endFrame: 14});
@@ -30,14 +30,14 @@ class Play extends Phaser.Scene{
 
         // note that scaling the sprite affects the relative position of the physics body
         this.boulder = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5),'Boulder').setOrigin(0.5);
-        this.boulder.body.setVelocityX(-100);
+        this.boulder.body.setVelocityX(-60);
         this.boulder.body.onCollide = true;
         this.boulder.body.setSize(10,10);
 
 
         //Physics object for the boulder
-        this.boulder2 = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'Boulder').setOrigin(0.5);
-        this.boulder2.body.setVelocityX(-100);
+        this.boulder2 = this.physics.add.sprite(widthSpacer*2, 100*getRandomInt(1,5), 'Boulder').setOrigin(0.5);
+        this.boulder2.body.setVelocityX(-60);
         this.boulder2.body.onCollide = true;
         this.boulder2.body.setSize(10,10);
 
@@ -180,10 +180,10 @@ class Play extends Phaser.Scene{
             // this.resetWeapon();
         }
         if(this.boulder2.x <= 0){
-            this.resetBoulder2;
+            this.resetBoulder2();
         }
         if(this.boulder.x <= 0){
-            this.resetBoulder;
+            this.resetBoulder();
         }
         if(this.enemy.x <= 0){
             this.moveSprite();
@@ -256,7 +256,7 @@ class Play extends Phaser.Scene{
     resetBoulder(){
         this.boulder.x = widthSpacer*5;
         this.boulder.y = 100*this.getRandomInt(1,5);
-        this.boulder.body.setVelocityX(-100);
+        this.boulder.body.setVelocityX(-60);
     }
     //Resets the player weapon.
     resetWeapon(){
@@ -269,7 +269,7 @@ class Play extends Phaser.Scene{
         
         this.boulder2.x = widthSpacer*5;
         this.boulder2.y = 100*this.getRandomInt(1,5);
-        this.boulder2.setVelocityX(-100);
+        this.boulder2.setVelocityX(-60);
     }
     checkMovement(){
         if(!weaponCheck){
