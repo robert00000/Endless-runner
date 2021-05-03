@@ -11,7 +11,11 @@ class Play extends Phaser.Scene{
         this.load.image('OPsword', './assets/Opposing sword.png');
         this.load.image('Spear', './assets/Spell1.png');
         this.load.audio('Rock hit', './assets/rock-hit.mp3')
+
         this.load.spritesheet('Player', './assets/KnightAnim2.png', {frameWidth: 71, frameHeight: 81, startFrame: 0, endFrame: 14});
+        this.load.audio('sword sfx', './assets/weapon.wav');
+        this.load.audio('enemycollision', './assets/EnemyCollision.wav');
+        this.load.audio('hurt sfx', './assets/HurtSFX.wav');
 
     }
 //Make player 2 as well as add some kind of music.
@@ -198,27 +202,27 @@ class Play extends Phaser.Scene{
         this.background.tilePositionX += 1;
         // check collisions
         if(this.physics.collide(this.player, this.enemy)){
-            this.sound.play('sfx_swordClash');
+            this.sound.play('hurt sfx');
             time += this.clock.getElapsedSeconds();
             this.scene.start('gameOverScene');
         }
         if(this.physics.collide(this.player, this.spear)){
-            this.sound.play('sfx_spell');
+            this.sound.play('hurt sfx');
             time += this.clock.getElapsedSeconds();
             this.scene.start('gameOverScene');
         }
         if(this.physics.collide(this.player, this.boulder)){
-            this.sound.play('Rock hit');
+            this.sound.play('hurt sfx');
             time += this.clock.getElapsedSeconds();
             this.scene.start('gameOverScene');
         }
         if(this.physics.collide(this.player, this.boulder2)){
-            this.sound.play('Rock hit');
+            this.sound.play('hurt sfx');
             this.scene.start('gameOverScene');
         }
         //When these objects collide it can reset their positions and create a new image.
         if(this.physics.collide(this.sword, this.enemy)){
-            this.sound.play('sfx_swordClash');
+            this.sound.play('enemycollision');
             this.resetEnemy();
             this.hideWeapon();
             this.moveSprite();
@@ -267,6 +271,7 @@ class Play extends Phaser.Scene{
              //this.checkMovement();
         } 
          else if(keyF.isDown){
+            this.sound.play('sword sfx');
             this.resetWeapon();
             this.checkMovement();
             
