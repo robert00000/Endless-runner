@@ -19,7 +19,7 @@ class Title extends Phaser.Scene {
         //music configuration.
         var musicConfig = {
             mute: false,
-            volume: .5,
+            volume: .2,
             rate: .5,
             detune: 0,
             loop: true,

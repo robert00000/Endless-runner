@@ -7,8 +7,8 @@ class Play extends Phaser.Scene{
         this.load.image('Enemy','./assets/Wizard.png');
         this.load.image('Sword', './assets/Sword.png');
         this.load.image('Boulder', './assets/Rock2.png')
-        this.load.image('OPsword', './assets/Spell2.png');
-        this.load.image('Spear', './assets/Spell1.png');
+        this.load.image('OPsword', './assets/Spell1.png');
+        this.load.image('Spear', './assets/Spell2.png');
 
         this.load.spritesheet('Player', './assets/KnightAnim2.png', {frameWidth: 71, frameHeight: 81, startFrame: 0, endFrame: 14});
         
