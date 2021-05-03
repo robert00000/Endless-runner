@@ -85,7 +85,7 @@ class GameOver extends Phaser.Scene {
         this.background.tilePositionX += 1;
         // wait for UP input to restart game
         if (keyR.isDown) {
-            this.sound.play('sfx_select');
+            this.sound.play('select');
             game.settings = 
             {
                 gameTimer: 1000
@@ -94,7 +94,7 @@ class GameOver extends Phaser.Scene {
             this.scene.start('playScene');
         }
         if(this.keyE.isDown){
-            this.sound.play('sfx_select');
+            this.sound.play('select');
             this.scene.start('Credits')
         }
 
