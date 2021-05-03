@@ -11,7 +11,7 @@ class Play extends Phaser.Scene{
         this.load.image('OPsword', './assets/Opposing sword.png');
         this.load.image('Spear', './assets/Spell1.png');
         this.load.audio('Rock hit', './assets/rock-hit.mp3')
-        this.load.audio('sword sfx', './assets/Weapon.wav');
+        this.load.audio('sword sfx', './assets/weapon.wav');
         this.load.audio('enemycollision', './assets/EnemyCollision.wav');
         this.load.audio('hurt sfx', './assets/HurtSFX.wav');
 
@@ -214,7 +214,7 @@ class Play extends Phaser.Scene{
         }
         //When these objects collide it can reset their positions and create a new image.
         if(this.physics.collide(this.sword, this.enemy)){
-            this.sound.play('sfx_swordClash');
+            this.sound.play('enemycollision');
             this.resetEnemy();
             this.hideWeapon();
             this.moveSprite();
@@ -263,6 +263,7 @@ class Play extends Phaser.Scene{
              //this.checkMovement();
         } 
          else if(keyF.isDown){
+            this.sound.play('sword sfx');
             this.resetWeapon();
             this.checkMovement();
             
