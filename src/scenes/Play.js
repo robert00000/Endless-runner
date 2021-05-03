@@ -3,7 +3,7 @@ class Play extends Phaser.Scene{
         super("playScene");
     }
     preload(){
-        this.load.image('Player', './assets/Knightp1.png');
+        //this.load.image('Player', './assets/Knightp1.png');
         this.load.image('Enemy','./assets/Wizard.png');
         this.load.image('Sword', './assets/Sword.png');
         this.load.image('Spell', './assets/Spear.png');
@@ -11,7 +11,7 @@ class Play extends Phaser.Scene{
         this.load.image('OPsword', './assets/Opposing sword.png');
         this.load.image('Spear', './assets/Spell1.png');
         this.load.audio('Rock hit', './assets/rock-hit.mp3')
-
+        this.load.spritesheet('Player', './assets/KnightAnim2.png', {frameWidth: 71, frameHeight: 81, startFrame: 0, endFrame: 14});
 
     }
 //Make player 2 as well as add some kind of music.
@@ -31,27 +31,27 @@ class Play extends Phaser.Scene{
 
         // note that scaling the sprite affects the relative position of the physics body
         this.boulder = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5),'Boulder').setOrigin(0.5);
-        this.boulder.body.setVelocityX(-this.boulderVelocity-100);
+        this.boulder.body.setVelocityX(-100);
         this.boulder.body.onCollide = true;
         this.boulder.body.setSize(10,10);
 
 
         //Physics object for the boulder
         this.boulder2 = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'Boulder').setOrigin(0.5);
-        this.boulder2.body.setVelocityX(-this.boulderVelocity);
+        this.boulder2.body.setVelocityX(-100);
         this.boulder2.body.onCollide = true;
-        this.boulder2.body.setSize(50,20);
+        this.boulder2.body.setSize(10,10);
 
         this.enemy = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'OPsword');
         //Physics body for one of the attacking objects.
-        this.enemy.body.setVelocityX(-this.ballVelocity);
+        this.enemy.body.setVelocityX(-600);
         //this.enemy.body.setAngularVelocity(90);
         this.enemy.body.onCollide = true; // must be set for collision event to work
         this.enemy.body.setSize(50, 20);
 
         //Physics object for the spear
         this.spear = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'Spear');
-        this.spear.body.setVelocityX(-this.ballVelocity -100);
+        this.spear.body.setVelocityX(-500);
         this.spear.body.onCollide = true;
         this.spear.body.setSize(165,50);
         //Physics object for the boulder
@@ -60,16 +60,25 @@ class Play extends Phaser.Scene{
 
 
         this.sword = this.physics.add.sprite(widthSpacer/2, 700, 'Sword');
-        this.sword.body.setSize(50,50)
+        this.sword.body.setSize(100,100);
         
 
         
-        this.player = this.physics.add.sprite(playerX, playerY, 'Player').setOrigin(0.5);
+        this.player = this.physics.add.sprite(50, 100, 'Player').setOrigin(0.5);
         this.player.body.onCollide = true;      // must be set for collision event to work
         this.player.body.onWorldBounds = true;  // ditto for worldbounds
         this.player.body.onOverlap = true;      // ditto for overlap
         this.player.setDebugBodyColor(0xFFFF00);
         this.player.setCollideWorldBounds(true);
+
+        //Knight animations
+        this.anims.create({
+            key: 'running',
+            frames: this.anims.generateFrameNumbers('Player', {start: 0, end: 14}),
+            frameRate: 20,
+            repeat: -1
+        });
+
         // info text
         //this.message = this.add.text(centerX, 32, 'Awaiting physics world events...').setOrigin(0.5);
         this.add.text(centerX, game.config.height - 64, 'Use cursor keys to move up and down.').setOrigin(0.5);
@@ -96,9 +105,6 @@ class Play extends Phaser.Scene{
             this.scene.start("gameOverScene");
         });
 
-
-        this.p1Score = 0;
-        highScore = highScore;
 
         let scoreConfig = 
         {
@@ -182,9 +188,11 @@ class Play extends Phaser.Scene{
     update(){
         this.moveSprite();
         this.moveText();
+        
         //updates timer
         this.timer.text = (game.settings.gameTimer / 1000) + Math.floor(this.clock.getElapsedSeconds());
-
+        //play animations
+        this.player.anims.play('running', true);
 
         //The speed for the background.
         this.background.tilePositionX += 1;
@@ -282,17 +290,17 @@ class Play extends Phaser.Scene{
     resetEnemy(){
         this.enemy.x = widthSpacer*5;
         this.enemy.y = 100*this.getRandomInt(1,5);
-        this.enemy.body.setVelocityX(-this.ballVelocity);
+        this.enemy.body.setVelocityX(-500);
     }
     resetSpear(){
         this.spear.x = widthSpacer*5;
         this.spear.y = 100*this.getRandomInt(1,5);
-        this.spear.body.setVelocityX(-this.ballVelocity - 100);
+        this.spear.body.setVelocityX(-600);
     }
     resetBoulder(){
         this.boulder.x = widthSpacer*5;
         this.boulder.y = 100*this.getRandomInt(1,5);
-        this.boulder.body.setVelocityX(-this.ballVelocity -100);
+        this.boulder.body.setVelocityX(-100);
     }
     //Resets the player weapon.
     resetWeapon(){
@@ -305,7 +313,7 @@ class Play extends Phaser.Scene{
         
         this.boulder2.x = widthSpacer*5;
         this.boulder2.y = 100*this.getRandomInt(1,5);
-        this.boulder2.setVelocityX(-this.boulderVelocity);
+        this.boulder2.setVelocityX(-100);
     }
     checkMovement(){
         if(!weaponCheck){

@@ -41,7 +41,7 @@ class Credits extends Phaser.Scene {
         
         //this.text1 = this.add.text(game.config.width/2, -100 - borderUISize - borderPadding, 'Game Over!', menuConfig).setOrigin(0.5);
         //this.text2 = this.add.text(game.config.width/2, -100, 'Press R to restart.', textConfig).setOrigin(0.5);
-        this.text1 = this.add.text(game.config.width/2, -100, 'Collaborators: Robert williams, Aaron Tishler, Carey Wang\nProgrammer: Robert Williams\nArt Assets: Aaron Tishler\n ', textConfig).setOrigin(0.5);
+        this.text1 = this.add.text(game.config.width/2, -100, 'Collaborators: Robert williams, Aaron Tishler, Carey Wang\nProgrammer: Robert Williams\nArt Assets: Aaron Tishler\nSound Design: Carey Wang ', textConfig).setOrigin(0.5);
         this.text4 = this.add.text(game.config.width/2, 700, 'Resources used: Phaser 3, Rocket Patrol ', textConfig).setOrigin(0.5);
         this.text2 = this.add.text(game.config.width/2 , -100, 'Press R to start the game.', textConfig).setOrigin(0.5)
 
