@@ -8,6 +8,7 @@ class Title extends Phaser.Scene {
         this.load.image('menuWizard', './assets/Wizard.png');
         this.load.audio('sfx_swordClash', './assets/sword-clash-03.wav');
         this.load.audio('sfx_spell', './assets/SpellSound.wav');
+        this.load.audio('select', './assets/Select.wav');
     }
     create() {
         this.background = this.add.tileSprite(0, 0, 640, 960, 'background').setOrigin(0, 0);
@@ -54,7 +55,8 @@ class Title extends Phaser.Scene {
         this.background.tilePositionX += 1;
         if (keyR.isDown) {
 
-            this.sound.play('sfx_spell');
+            this.sound.play('select');
+            //this.sound.play('sfx_spell');
             //setting default time to 0 for timer
             game.settings = 
             {
@@ -65,8 +67,10 @@ class Title extends Phaser.Scene {
             this.scene.start('playScene');
         }
         if(this.keyE.isDown){
-            this.sound.play('sfx_spell');
+            //this.sound.play('sfx_spell');
             this.scene.start('Credits')
+            this.sound.play('select');
+
         }
         
     }
