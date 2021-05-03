@@ -8,7 +8,9 @@ class Title extends Phaser.Scene {
         this.load.image('menuWizard', './assets/Wizard.png');
         this.load.audio('sfx_swordClash', './assets/sword-clash-03.wav');
         this.load.audio('sfx_spell', './assets/SpellSound.wav');
+
         this.load.audio('select', './assets/Select.wav');
+
     }
     create() {
         this.background = this.add.tileSprite(0, 0, 640, 960, 'background').setOrigin(0, 0);
@@ -43,7 +45,7 @@ class Title extends Phaser.Scene {
       
       
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press the R key to start the game\nPress E to see credits.', textConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height-200 + borderUISize + borderPadding, 'Avoid the spears and obstacles but you can counter the swords.', textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height-200 + borderUISize + borderPadding, 'Avoid the Spells and obstacles but you can counter the swords that fly\nby pressing the F key.', textConfig).setOrigin(0.5);
         
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
@@ -54,6 +56,7 @@ class Title extends Phaser.Scene {
     update() {
         this.background.tilePositionX += 1;
         if (keyR.isDown) {
+
 
             this.sound.play('select');
             //this.sound.play('sfx_spell');

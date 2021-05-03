@@ -42,7 +42,7 @@ class GameOver extends Phaser.Scene {
         this.text1 = this.add.text(game.config.width/2, -100 - borderUISize - borderPadding, 'Game Over!', menuConfig).setOrigin(0.5);
         this.text2 = this.add.text(game.config.width/2, -100, 'Press R to restart. Press E for credits.', textConfig).setOrigin(0.5);
         this.text3 = this.add.text(game.config.width/2, 700, 'Your time is ' + parseFloat(time), textConfig).setOrigin(0.5);
-        this.text4 = this.add.text(game.config.width/2, 700, 'Your highScore is ' + parseFloat(highScore), textConfig).setOrigin(0.5);
+        this.text4 = this.add.text(game.config.width/2, 700, 'Your highest time is ' + parseFloat(highScore), textConfig).setOrigin(0.5);
         
 
         this.tweens.add({
@@ -85,7 +85,7 @@ class GameOver extends Phaser.Scene {
         this.background.tilePositionX += 1;
         // wait for UP input to restart game
         if (keyR.isDown) {
-            this.sound.play('sfx_spell');
+            this.sound.play('sfx_select');
             game.settings = 
             {
                 gameTimer: 1000
@@ -94,7 +94,7 @@ class GameOver extends Phaser.Scene {
             this.scene.start('playScene');
         }
         if(this.keyE.isDown){
-            this.sound.play('sfx_spell');
+            this.sound.play('sfx_select');
             this.scene.start('Credits')
         }
 
