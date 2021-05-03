@@ -48,14 +48,14 @@ class Play extends Phaser.Scene{
 
         this.enemy = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'OPsword');
         //Physics body for one of the attacking objects.
-        this.enemy.body.setVelocityX(-600);
+        this.enemy.body.setVelocityX(-500);
         //this.enemy.body.setAngularVelocity(90);
         this.enemy.body.onCollide = true; // must be set for collision event to work
         this.enemy.body.setSize(50, 20);
 
         //Physics object for the spear
         this.spear = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'Spear');
-        this.spear.body.setVelocityX(-500);
+        this.spear.body.setVelocityX(-450);
         this.spear.body.onCollide = true;
         this.spear.body.setSize(165,50);
         //Physics object for the boulder
@@ -264,10 +264,10 @@ class Play extends Phaser.Scene{
         
         
          if(cursors.up.isDown) {
-            this.player.body.setVelocityY(-400);
+            this.player.body.setVelocityY(-500);
             //this.checkMovement();
         } else if(cursors.down.isDown) {
-             this.player.body.setVelocityY(400);
+             this.player.body.setVelocityY(500);
              //this.checkMovement();
         } 
          else if(keyF.isDown){

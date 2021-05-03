@@ -10,17 +10,29 @@ class Title extends Phaser.Scene {
         this.load.audio('sfx_spell', './assets/SpellSound.wav');
 
         this.load.audio('select', './assets/Select.wav');
-
+        this.load.audio('music','./assets/bgm.wav')
     }
     create() {
         this.background = this.add.tileSprite(0, 0, 640, 960, 'background').setOrigin(0, 0);
+        //music configuration.
+        var musicConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            loop: true,
+            delay: 0
+        }
+        //Looping background music.
+        this.music = this.sound.add('music');
+        this.music.play(musicConfig);
         
         // menu text configuration
         let menuConfig = {
             fontFamily: 'Arial',
             fontSize: '28px',
             color: '#FEFEFE',
-            align: 'right',
+            align: 'center',
             padding: {
                 top: 5,
                 bottom: 5,
@@ -39,7 +51,7 @@ class Title extends Phaser.Scene {
             fixedWidth: 0
         }
         //this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0, 0);
-        var text1 = this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Welcome to Knight Runner.', menuConfig).setOrigin(0.5);
+        var text1 = this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Welcome to Knight Runner 2', menuConfig).setOrigin(0.5);
         text1.setTint(0xff0000);
         //text2 = this.add.text(game.config.width/2, game.config.height/2, 'Use UP & DOWN arrows keys to move & (F) to fire', textConfig).setOrigin(0.5);
       
@@ -55,6 +67,10 @@ class Title extends Phaser.Scene {
 
     update() {
         this.background.tilePositionX += 1;
+        //Music looping
+        
+
+
         if (keyR.isDown) {
 
 
