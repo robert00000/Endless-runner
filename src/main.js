@@ -1,6 +1,6 @@
 //Collaborators Robert Williams, Carey Wang and Aaron Tishler
-// *Game Title*      
-//Date completed:
+// Knight Runner      
+//Date completed: 5/3/21
 
 let config = {
     type: Phaser.CANVAS,
@@ -16,7 +16,7 @@ let config = {
             }
         }
     },
-    scene: [ Title, Play, GameOver]
+    scene: [ Title, Play, GameOver, Credits]
     
 }
 
@@ -27,7 +27,7 @@ let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 
 // reserve keyboard variables
-let keyF, keyR, keyLEFT, keyRIGHT, xPosition,yPosition, keyUP, keyDOWN, leftClick;
+let keyF, keyR, keyLEFT, keyRIGHT, xPosition,yPosition, keyUP, keyDOWN, KeyE;
 let character = null;
 let centerX = game.config.width/2, centerY = game.config.height/2;
 let playerX = 5, playerY;
@@ -48,6 +48,7 @@ let cursors = null;
 let weaponCheck = false;
 
 let enemyGroup = null;
+let time = 0;
 
 let startDate = new Date();
 let endDate = new Date();

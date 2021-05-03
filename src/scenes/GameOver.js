@@ -4,6 +4,8 @@ class GameOver extends Phaser.Scene {
     }
 
     create() {
+        this.background = this.add.tileSprite(0, 0, 640, 960, 'background').setOrigin(0, 0);
+        
         // menu text configuration
         let menuConfig = {
             fontFamily: 'Arial',
@@ -28,8 +30,19 @@ class GameOver extends Phaser.Scene {
             fixedWidth: 0
         }
         //this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0, 0);
+        
+
+        if(time > highScore){
+            highScore = time;
+            highScore = highScore.toFixed(2);
+        }
+
+        time = time.toFixed(2);
+        
         this.text1 = this.add.text(game.config.width/2, -100 - borderUISize - borderPadding, 'Game Over!', menuConfig).setOrigin(0.5);
-        this.text2 = this.add.text(game.config.width/2, -100, 'Press R to restart.', textConfig).setOrigin(0.5);
+        this.text2 = this.add.text(game.config.width/2, -100, 'Press R to restart. Press E for credits.', textConfig).setOrigin(0.5);
+        this.text3 = this.add.text(game.config.width/2, 700, 'Your time is ' + parseFloat(time), textConfig).setOrigin(0.5);
+        this.text4 = this.add.text(game.config.width/2, 700, 'Your highScore is ' + parseFloat(highScore), textConfig).setOrigin(0.5);
         
 
         this.tweens.add({
@@ -46,29 +59,44 @@ class GameOver extends Phaser.Scene {
             ease: 'Power2',
             
         });
-
+        this.tweens.add({
+            targets: this.text3,
+            y: 300,
+            //duration: 500,
+            delay: 500,
+            ease: 'Power2',
+            
+        });
+        this.tweens.add({
+            targets: this.text4,
+            y: 350,
+            //duration: 500,
+            delay: 2000,
+            ease: 'Power2',
+            
+        });
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         
-        
-        
+        time = 0;
     }
 
     update() {
+        this.background.tilePositionX += 1;
         // wait for UP input to restart game
         if (keyR.isDown) {
-            let textureManager = this.textures;
-            // take snapshot of the entire game viewport (same as title screen)
-            this.game.renderer.snapshot(function(image) {
-                if(textureManager.exists('titlesnapshot')) {
-                    textureManager.remove('titlesnapshot');
-                }
-                textureManager.addImage('titlesnapshot', image);
-            });
-
+            this.sound.play('sfx_spell');
+            game.settings = 
+            {
+                gameTimer: 1000
+            }
             // start next scene
             this.scene.start('playScene');
         }
-
+        if(this.keyE.isDown){
+            this.sound.play('sfx_spell');
+            this.scene.start('Credits')
+        }
 
 
         this.tweens.add({

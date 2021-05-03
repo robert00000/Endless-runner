@@ -6,9 +6,12 @@ class Play extends Phaser.Scene{
         this.load.image('Player', './assets/Knightp1.png');
         this.load.image('Enemy','./assets/Wizard.png');
         this.load.image('Sword', './assets/Sword.png');
-        this.load.image('Spear', './assets/Spear.png');
+        this.load.image('Spell', './assets/Spear.png');
         this.load.image('Boulder', './assets/Rock2.png')
         this.load.image('OPsword', './assets/Opposing sword.png');
+        this.load.image('Spear', './assets/Spell1.png');
+        this.load.audio('Rock hit', './assets/rock-hit.mp3')
+
 
     }
 //Make player 2 as well as add some kind of music.
@@ -27,14 +30,14 @@ class Play extends Phaser.Scene{
         
 
         // note that scaling the sprite affects the relative position of the physics body
-        this.boulder = this.physics.add.sprite(widthSpacer*5, 135*getRandomInt(1,5),'Boulder');
+        this.boulder = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5),'Boulder').setOrigin(0.5);
         this.boulder.body.setVelocityX(-this.boulderVelocity-100);
         this.boulder.body.onCollide = true;
         this.boulder.body.setSize(10,10);
 
 
         //Physics object for the boulder
-        this.boulder2 = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'Boulder');
+        this.boulder2 = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'Boulder').setOrigin(0.5);
         this.boulder2.body.setVelocityX(-this.boulderVelocity);
         this.boulder2.body.onCollide = true;
         this.boulder2.body.setSize(50,20);
@@ -50,7 +53,7 @@ class Play extends Phaser.Scene{
         this.spear = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'Spear');
         this.spear.body.setVelocityX(-this.ballVelocity -100);
         this.spear.body.onCollide = true;
-        this.spear.body.setSize(50,20);
+        this.spear.body.setSize(165,50);
         //Physics object for the boulder
         
        // this.enemy.body.onCollide = true; // must be set for collision event to work
@@ -101,8 +104,7 @@ class Play extends Phaser.Scene{
         {
         fontFamily: 'Courier',
         fontSize: '28px',
-        backgroundColor: '#F3B141',
-        color: '#843605',
+        color: '#FEFEFE',
         align: 'right',
         padding: {
           top: 5,
@@ -121,9 +123,8 @@ class Play extends Phaser.Scene{
         this.clock = this.time.delayedCall(startDate, () => {}, null, this); 
 
         //creates timer display
-        scoreConfig.color = "#843605";
+        //scoreConfig.color = "#843605";
         this.timer = this.add.text(game.config.width/2, 72, this.clock.getElapsedSeconds(), scoreConfig).setOrigin(0.5);
-       
         
 
 
@@ -153,12 +154,12 @@ class Play extends Phaser.Scene{
         //  this.data.set('score', highScore);
 
         
-         var text = this.add.text(450, 1, '', { font: '16px Courier', fill: '#00ff00' });
-         text.setText([
-             'Y coord: ' + this.data.get('level'),
-             'X coord: ' + this.data.get('time'),
-             'Score: ' + this.data.get('score')
-         ]);
+        //  var text = this.add.text(450, 1, '', { font: '16px Courier', fill: '#00ff00' });
+        //  text.setText([
+        //      'Y coord: ' + this.data.get('level'),
+        //      'X coord: ' + this.data.get('time'),
+        //      'Score: ' + this.data.get('score')
+        //  ]);
         
         // set up difficulty timer (triggers callback every second)
         // this.difficultyTimer = this.time.addEvent({
@@ -189,19 +190,27 @@ class Play extends Phaser.Scene{
         this.background.tilePositionX += 1;
         // check collisions
         if(this.physics.collide(this.player, this.enemy)){
+            this.sound.play('sfx_swordClash');
+            time += this.clock.getElapsedSeconds();
             this.scene.start('gameOverScene');
         }
         if(this.physics.collide(this.player, this.spear)){
+            this.sound.play('sfx_spell');
+            time += this.clock.getElapsedSeconds();
             this.scene.start('gameOverScene');
         }
         if(this.physics.collide(this.player, this.boulder)){
+            this.sound.play('Rock hit');
+            time += this.clock.getElapsedSeconds();
             this.scene.start('gameOverScene');
         }
         if(this.physics.collide(this.player, this.boulder2)){
+            this.sound.play('Rock hit');
             this.scene.start('gameOverScene');
         }
         //When these objects collide it can reset their positions and create a new image.
         if(this.physics.collide(this.sword, this.enemy)){
+            this.sound.play('sfx_swordClash');
             this.resetEnemy();
             this.hideWeapon();
             this.moveSprite();
@@ -277,7 +286,7 @@ class Play extends Phaser.Scene{
     }
     resetSpear(){
         this.spear.x = widthSpacer*5;
-        this.spear.y = 125*this.getRandomInt(1,9);
+        this.spear.y = 100*this.getRandomInt(1,5);
         this.spear.body.setVelocityX(-this.ballVelocity - 100);
     }
     resetBoulder(){
@@ -325,12 +334,13 @@ class Play extends Phaser.Scene{
     moveSprite(){
         this.tweens.add({
             targets: this.theEnemy,
-            y: this.enemy.y,
+            y: this.spear.y,
             x: 600,
-            duration: 500,
+            //duration: 500,
             ease: 'Power2',
             
         });
+        
     }
     moveText(){
         this.tweens.add({
