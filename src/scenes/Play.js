@@ -6,17 +6,12 @@ class Play extends Phaser.Scene{
         //this.load.image('Player', './assets/Knightp1.png');
         this.load.image('Enemy','./assets/Wizard.png');
         this.load.image('Sword', './assets/Sword.png');
-        this.load.image('Spell', './assets/Spear.png');
         this.load.image('Boulder', './assets/Rock2.png')
-        this.load.image('OPsword', './assets/Opposing sword.png');
+        this.load.image('OPsword', './assets/Wizard.png');
         this.load.image('Spear', './assets/Spell1.png');
-        this.load.audio('Rock hit', './assets/rock-hit.mp3')
 
         this.load.spritesheet('Player', './assets/KnightAnim2.png', {frameWidth: 71, frameHeight: 81, startFrame: 0, endFrame: 14});
-        this.load.audio('sword sfx', './assets/weapon.wav');
-        this.load.audio('enemycollision', './assets/EnemyCollision.wav');
-        this.load.audio('hurt sfx', './assets/HurtSFX.wav');
-
+        
     }
 //Make player 2 as well as add some kind of music.
 
@@ -49,7 +44,6 @@ class Play extends Phaser.Scene{
         this.enemy = this.physics.add.sprite(widthSpacer*5, 100*getRandomInt(1,5), 'OPsword');
         //Physics body for one of the attacking objects.
         this.enemy.body.setVelocityX(-500);
-        //this.enemy.body.setAngularVelocity(90);
         this.enemy.body.onCollide = true; // must be set for collision event to work
         this.enemy.body.setSize(50, 20);
 
@@ -60,9 +54,7 @@ class Play extends Phaser.Scene{
         this.spear.body.setSize(165,50);
         //Physics object for the boulder
         
-       // this.enemy.body.onCollide = true; // must be set for collision event to work
-
-
+       
         this.sword = this.physics.add.sprite(widthSpacer/2, 700, 'Sword');
         this.sword.body.setSize(100,100);
         
@@ -88,20 +80,7 @@ class Play extends Phaser.Scene{
         this.add.text(centerX, game.config.height - 64, 'Use cursor keys to move up and down.').setOrigin(0.5);
         
 
-        // create physics world events
-        // note: you MUST use a .collide/.overlap check in update() AND set body.onCollide/body.onOverlap/.onWorldBounds to true for these to work
-        // this.physics.world.on('collide', (obj1, obj2, body1, body2)=>{
-        //     this.message.text = `${obj1.texture.key} is colliding with ${obj2.texture.key} body`;
-        // });
-
-        // this.physics.world.on('overlap', (obj1, obj2, body1, body2)=>{
-        //     this.message.text = `${obj1.texture.key} body is overlapping ${obj2.texture.key} body`;
-        // });
-
-        // this.physics.world.on('worldbounds', (body)=>{
-        //     this.message.text = `${body.gameObject.texture.key} touched world bounds`;
-        // });
-
+        
         // define cursors and S key (for Scene switching)
         cursors = this.input.keyboard.createCursorKeys();
         swap = this.input.keyboard.addKey('S');
@@ -155,40 +134,12 @@ class Play extends Phaser.Scene{
 
         
 
-        // // reset parameters
-        // level = 0;
-        // this.playerVelocity = 300;
-
-          this.data.set('time', this.enemy.x);
-        //  this.data.set('level', this.enemy.y);
-        //  this.data.set('score', highScore);
-
-        
-        //  var text = this.add.text(450, 1, '', { font: '16px Courier', fill: '#00ff00' });
-        //  text.setText([
-        //      'Y coord: ' + this.data.get('level'),
-        //      'X coord: ' + this.data.get('time'),
-        //      'Score: ' + this.data.get('score')
-        //  ]);
-        
-        // set up difficulty timer (triggers callback every second)
-        // this.difficultyTimer = this.time.addEvent({
-        //     delay: 1000,
-        //     callback: this.levelBump,
-        //     callbackScope: this,
-        //     loop: true
-        // });
-        
-        //Game over flag
-        // this.gameOver = false;
-      //  For collision work on arcade physics.
-        // let ball01 = this.physics.add.sprite(widthSpacer, halfHeight, 'basketball).setScale(0.5);\
         
     }
 
   
-    // I've sort of figured out how to work the collision system that 
-    //Phaser 3 offers which is called Arcade Physics. This allows us to check if things collide.
+    
+    
     update(){
         this.moveSprite();
         this.moveText();
@@ -250,7 +201,7 @@ class Play extends Phaser.Scene{
         }
 
         // check overlaps
-
+        //Experimental left and right movement.
         // player input
         // if(cursors.left.isDown) {
         //     this.player.body.setVelocityX(-this.ballVelocity);

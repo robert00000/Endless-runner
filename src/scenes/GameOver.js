@@ -29,7 +29,6 @@ class GameOver extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        //this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0, 0);
         
 
         if(time > highScore){

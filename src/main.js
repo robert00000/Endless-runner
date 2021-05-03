@@ -34,11 +34,8 @@ let playerX = 5, playerY;
 let w = game.config.width;
 let h = game.config.height;
 const textSpacer = 64;
-let paddle = null;
-const paddleWidth = 16;
-const paddleHeight = 128;
-const paddleVelocity = 150;
-let level;
+
+
 let highScore;
 let newHighScore = false;
 let widthSpacer = game.config.width/5;

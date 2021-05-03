@@ -6,19 +6,21 @@ class Title extends Phaser.Scene {
         //images and sounds go here.
         this.load.image ('background','./assets/ERBackground.png');
         this.load.image('menuWizard', './assets/Wizard.png');
-        this.load.audio('sfx_swordClash', './assets/sword-clash-03.wav');
-        this.load.audio('sfx_spell', './assets/SpellSound.wav');
-
+        
         this.load.audio('select', './assets/Select.wav');
-        this.load.audio('music','./assets/bgm.wav')
+        this.load.audio('music','./assets/bgm.wav');
+        this.load.audio('sword sfx', './assets/weapon.wav');
+        this.load.audio('enemycollision', './assets/EnemyCollision.wav');
+        this.load.audio('hurt sfx', './assets/HurtSFX.wav');
+
     }
     create() {
         this.background = this.add.tileSprite(0, 0, 640, 960, 'background').setOrigin(0, 0);
         //music configuration.
         var musicConfig = {
             mute: false,
-            volume: 1,
-            rate: 1,
+            volume: .5,
+            rate: .5,
             detune: 0,
             loop: true,
             delay: 0
@@ -26,7 +28,7 @@ class Title extends Phaser.Scene {
         //Looping background music.
         this.music = this.sound.add('music');
         this.music.play(musicConfig);
-        
+
         // menu text configuration
         let menuConfig = {
             fontFamily: 'Arial',
@@ -57,7 +59,7 @@ class Title extends Phaser.Scene {
       
       
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press the R key to start the game\nPress E to see credits.', textConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height-200 + borderUISize + borderPadding, 'Avoid the Spells and obstacles but you can counter the swords that fly\nby pressing the F key.', textConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height-200 + borderUISize + borderPadding, 'Avoid the Spells and obstacles and watch out for the shadow clones!\nYou can destroy them pressing the F key.', textConfig).setOrigin(0.5);
         
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
@@ -75,7 +77,7 @@ class Title extends Phaser.Scene {
 
 
             this.sound.play('select');
-            //this.sound.play('sfx_spell');
+            
             //setting default time to 0 for timer
             game.settings = 
             {

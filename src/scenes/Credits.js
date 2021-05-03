@@ -29,8 +29,6 @@ class Credits extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        //this.background = this.add.tileSprite(0, 0, 640, 480, 'background').setOrigin(0, 0);
-        
 
         if(time > highScore){
             highScore = time;
@@ -39,8 +37,6 @@ class Credits extends Phaser.Scene {
 
         time = time.toFixed(2);
         
-        //this.text1 = this.add.text(game.config.width/2, -100 - borderUISize - borderPadding, 'Game Over!', menuConfig).setOrigin(0.5);
-        //this.text2 = this.add.text(game.config.width/2, -100, 'Press R to restart.', textConfig).setOrigin(0.5);
         this.text1 = this.add.text(game.config.width/2, -100, 'Collaborators: Robert williams, Aaron Tishler, Carey Wang\nProgrammer: Robert Williams\nArt Assets: Aaron Tishler\nSound Design: Carey Wang ', textConfig).setOrigin(0.5);
         this.text4 = this.add.text(game.config.width/2, 700, 'Resources used: Phaser 3, Rocket Patrol, Paint 3d, Visual Studio, Github, Beat fixer, Adobe illustrator\nAbleton and Adobe illustrator.', textConfig).setOrigin(0.5);
         this.text2 = this.add.text(game.config.width/2 , -100, 'Press R to start the game.', textConfig).setOrigin(0.5)
@@ -85,7 +81,7 @@ class Credits extends Phaser.Scene {
         
         // wait for UP input to restart game
         if (keyR.isDown) {
-            this.sound.play('sfx_spell');
+            this.sound.play('select');
             game.settings = 
             {
                 gameTimer: 1000
