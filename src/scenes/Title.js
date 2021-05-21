@@ -12,6 +12,7 @@ class Title extends Phaser.Scene {
         this.load.audio('sword sfx', './assets/Weapon.wav');
         this.load.audio('enemycollision', './assets/EnemyCollision.wav');
         this.load.audio('hurt sfx', './assets/HurtSFX.wav');
+        this.load.audio('jump_sfx', './assets/Jump.mp3');
 
     }
     create() {

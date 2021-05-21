@@ -1,7 +1,11 @@
 //Collaborators Robert Williams, Carey Wang and Aaron Tishler
 // Knight Runner      
 //Date completed: 5/3/21
-
+//Creative tilt:
+//An intersting thing inside the game was the implementation of an attack in which allows the player to
+//shoot a projectile at certain attacks.To add difficulty not all spells or obstacles can be countered.
+//Also there is a wizard that appears when spells are cast using tweening effects.
+//The game keeps track of the time the player survives.
 let config = {
     type: Phaser.CANVAS,
     width: 640,
